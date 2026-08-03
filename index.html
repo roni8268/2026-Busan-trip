@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>釜山 BUSAN｜9/10–9/18 情侶行程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2A47;
+    --navy-deep:#081b30;
+    --coral:#FF6B4E;
+    --sand:#F6EEE2;
+    --teal:#1F7A72;
+    --gold:#E8B04B;
+    --ink:#122436;
+    --paper:#FBF7F0;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:'Noto Serif TC',serif;}
+  .num{font-family:'Bebas Neue',sans-serif; letter-spacing:0.04em;}
+
+  /* ---------- HERO / BOARDING PASS ---------- */
+  .hero{
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,107,78,0.25), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(31,122,114,0.35), transparent 45%),
+      linear-gradient(160deg,var(--navy-deep),var(--navy) 60%);
+    padding:56px 20px 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero:before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(transparent, transparent 38px, rgba(255,255,255,0.035) 39px);
+    pointer-events:none;
+  }
+  .hero-inner{max-width:920px; margin:0 auto; position:relative; z-index:2;}
+  .eyebrow{
+    color:var(--gold); text-transform:uppercase; letter-spacing:0.35em;
+    font-size:12px; font-weight:700; margin-bottom:16px;
+  }
+  .hero h1{
+    font-size:clamp(48px,10vw,104px);
+    line-height:0.9;
+    margin:0;
+    color:var(--paper);
+    font-weight:900;
+  }
+  .hero h1 span{color:var(--coral); font-style:italic; font-family:'Noto Serif TC',serif; font-weight:700; font-size:0.55em; display:block; margin-top:6px;}
+
+  .ticket{
+    margin-top:40px;
+    background:var(--paper);
+    border-radius:18px;
+    display:flex;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+    position:relative;
+    overflow:hidden;
+  }
+  .ticket-main{flex:1; padding:24px 28px; display:flex; gap:26px; flex-wrap:wrap;}
+  .ticket-stub{
+    width:200px; padding:24px 18px; background:var(--navy);
+    color:var(--paper); position:relative;
+    border-left:2px dashed rgba(255,255,255,0.25);
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .tk-label{font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:#9fb3c8; margin-bottom:4px;}
+  .tk-value{font-size:14px; font-weight:700; margin-bottom:12px;}
+  .route{display:flex; align-items:center; gap:12px;}
+  .route .city{font-family:'Bebas Neue'; font-size:30px; letter-spacing:0.05em;}
+  .route .plane{color:var(--coral); font-size:18px;}
+  .flight-num{font-family:'Bebas Neue'; font-size:18px; color:var(--gold); letter-spacing:0.08em;}
+
+  /* lodging strip */
+  .lodging{
+    max-width:920px; margin:26px auto 0; display:flex; gap:14px; flex-wrap:wrap;
+    position:relative; z-index:2;
+  }
+  .lodge-card{
+    flex:1; min-width:220px; background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.15); border-radius:14px; padding:16px 18px;
+    color:var(--paper);
+  }
+  .lodge-card .lg-label{color:var(--gold); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:4px;}
+  .lodge-card .lg-area{font-family:'Bebas Neue'; font-size:24px; letter-spacing:0.03em;}
+  .lodge-card .lg-date{font-size:12px; color:#c3d1de; margin-top:2px;}
+
+  /* ---------- NAV ---------- */
+  .daynav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,240,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(14,42,71,0.12);
+    display:flex; gap:6px; overflow-x:auto;
+    padding:12px 16px;
+    scrollbar-width:none;
+  }
+  .daynav::-webkit-scrollbar{display:none;}
+  .daynav button{
+    flex:0 0 auto;
+    border:1px solid rgba(14,42,71,0.18);
+    background:transparent;
+    color:var(--navy);
+    padding:8px 16px;
+    border-radius:999px;
+    font-family:'Noto Sans TC'; font-weight:700; font-size:13px;
+    cursor:pointer;
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  .daynav button .d{font-family:'Bebas Neue'; font-size:15px; margin-right:4px; color:var(--coral);}
+  .daynav button.active{background:var(--navy); color:var(--paper); border-color:var(--navy);}
+  .daynav button.active .d{color:var(--gold);}
+  .daynav button.vbp-btn{border-color:var(--gold); color:#9a7418;}
+  .daynav button.vbp-btn.active{background:var(--gold); color:var(--navy-deep);}
+
+  /* ---------- DAY SECTIONS ---------- */
+  main{max-width:820px; margin:0 auto; padding:50px 20px 40px;}
+  .day{ display:none; animation:fade .4s ease; }
+  .day.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  .day-head{display:flex; align-items:flex-end; gap:16px; margin-bottom:6px;}
+  .day-head .big{font-family:'Bebas Neue'; font-size:80px; line-height:0.8; color:var(--navy);}
+  .day-head .meta{padding-bottom:6px;}
+  .day-head .meta .date{color:var(--coral); font-weight:700; font-size:13px; letter-spacing:0.1em;}
+  .day-head .meta h2{margin:2px 0 0; font-size:25px; font-family:'Noto Serif TC'; font-weight:700; color:var(--ink); outline:none;}
+  .lodge-pill{
+    display:inline-flex; align-items:center; gap:6px; margin:14px 0 30px;
+    background:#fff; border:1px solid rgba(14,42,71,0.12); border-radius:999px;
+    padding:6px 14px; font-size:12px; color:#5a6b7a; font-weight:700;
+  }
+  .lodge-pill .dot{width:7px; height:7px; border-radius:50%; background:var(--teal);}
+
+  .timeline{position:relative; margin-left:6px; padding-left:26px; border-left:2px dashed rgba(14,42,71,0.25);}
+  .item{position:relative; padding-bottom:28px;}
+  .item:last-child{padding-bottom:4px;}
+  .item:before{
+    content:""; position:absolute; left:-33px; top:4px;
+    width:14px; height:14px; border-radius:50%;
+    background:var(--paper); border:3px solid var(--coral);
+  }
+  .item.food:before{border-color:var(--gold);}
+  .item.view:before{border-color:var(--teal);}
+  .item.pass:before{border-color:#8a5cf6;}
+  .time-row{display:flex; align-items:center; gap:0;}
+  .time-text{font-family:'Bebas Neue'; color:var(--navy); font-size:18px; letter-spacing:0.05em; outline:none;}
+  .tag{
+    display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.08em;
+    padding:2px 8px; border-radius:20px; margin-left:8px; vertical-align:2px;
+    background:rgba(31,122,114,0.12); color:var(--teal);
+  }
+  .item.food .tag{background:rgba(232,176,75,0.18); color:#9a7418;}
+  .item.view .tag{background:rgba(255,107,78,0.15); color:#c9502f;}
+  .item.pass .tag{background:rgba(138,92,246,0.15); color:#6a3fd1;}
+  .item h3{margin:6px 0 4px; font-size:17px; font-weight:700; color:var(--ink); outline:none;}
+  .item p{margin:0; font-size:14px; line-height:1.7; color:#4b5b6a; outline:none;}
+
+  .tipbox{
+    margin-top:34px; background:#fff; border:1px solid rgba(14,42,71,0.1);
+    border-radius:14px; padding:16px 20px; font-size:13.5px; color:#4b5b6a; line-height:1.8; outline:none;
+  }
+  .tipbox b{color:var(--navy);}
+  .tipbox.rain{border-left:3px solid var(--teal);}
+  .tipbox.trap{border-left:3px solid var(--coral); margin-top:14px;}
+
+  /* VBP panel */
+  .vbp-panel{display:none;}
+  .vbp-panel.active{display:block; animation:fade .4s ease;}
+  .vbp-hero{
+    background:linear-gradient(135deg, rgba(232,176,75,0.15), rgba(138,92,246,0.08));
+    border:1px solid rgba(232,176,75,0.35); border-radius:16px; padding:22px 24px; margin-bottom:24px;
+  }
+  .vbp-hero h2{margin:0 0 8px; font-family:'Noto Serif TC'; font-size:22px; color:var(--ink);}
+  table.vbp-table{width:100%; border-collapse:collapse; margin:18px 0; font-size:13.5px;}
+  table.vbp-table th, table.vbp-table td{text-align:left; padding:9px 10px; border-bottom:1px solid rgba(14,42,71,0.1);}
+  table.vbp-table th{color:var(--navy); font-size:11px; text-transform:uppercase; letter-spacing:0.06em;}
+  .badge-purple{display:inline-block; width:10px; height:10px; border-radius:50%; background:#8a5cf6; margin-right:6px;}
+
+  footer{text-align:center; padding:50px 20px 70px; color:#8093a8; font-size:12px; letter-spacing:0.05em;}
+  footer .wave{font-family:'Bebas Neue'; font-size:13px; color:var(--coral); margin-bottom:8px; letter-spacing:0.3em;}
+
+  /* ---------- EDIT MODE ---------- */
+  .edit-fab{
+    position:fixed; right:20px; bottom:20px; z-index:100;
+    display:flex; flex-direction:column; gap:10px; align-items:flex-end;
+  }
+  .edit-fab button{
+    border:none; border-radius:999px; padding:12px 20px; font-family:'Noto Sans TC'; font-weight:700;
+    font-size:13px; cursor:pointer; box-shadow:0 10px 24px rgba(0,0,0,0.2); display:flex; align-items:center; gap:6px;
+  }
+  #toggleEdit{background:var(--navy); color:var(--paper);}
+  #toggleEdit.on{background:var(--coral);}
+  #saveEdit, #resetEdit{display:none; background:#fff; color:var(--navy); border:1px solid rgba(14,42,71,0.2) !important;}
+  .edit-fab.editing #saveEdit, .edit-fab.editing #resetEdit{display:flex;}
+  body.editing .editable{outline:1.5px dashed rgba(255,107,78,0.55); outline-offset:3px; border-radius:4px; cursor:text;}
+  body.editing .editable:hover{background:rgba(255,107,78,0.06);}
+  body.editing .editable:focus{outline:1.5px solid var(--coral); background:rgba(255,107,78,0.08);}
+  .toast{
+    position:fixed; left:50%; bottom:90px; transform:translateX(-50%) translateY(20px);
+    background:var(--navy); color:var(--paper); padding:10px 20px; border-radius:999px;
+    font-size:13px; font-weight:700; opacity:0; pointer-events:none; transition:all .3s ease; z-index:200;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* 密碼鎖 */
+  #lockOverlay{
+    position:fixed; inset:0; background:rgba(8,27,48,0.92); z-index:300;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  #lockOverlay.hidden{display:none;}
+  .lock-box{
+    background:var(--paper); border-radius:16px; padding:28px 26px; width:100%; max-width:320px;
+    text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .lock-box h3{margin:0 0 6px; font-family:'Noto Serif TC'; color:var(--ink);}
+  .lock-box p{margin:0 0 16px; font-size:12.5px; color:#5a6b7a;}
+  .lock-box input{
+    width:100%; padding:10px 12px; border:1px solid rgba(14,42,71,0.2); border-radius:8px;
+    font-size:15px; text-align:center; letter-spacing:0.1em; margin-bottom:12px;
+  }
+  .lock-box button{
+    width:100%; padding:10px; border:none; border-radius:8px; background:var(--coral); color:#fff;
+    font-weight:700; font-size:14px; cursor:pointer;
+  }
+  .lock-box .err{color:var(--coral); font-size:12px; height:16px; margin-top:8px;}
+
+  @media(max-width:640px){
+    .ticket{flex-direction:column;}
+    .ticket-stub{border-left:none; border-top:2px dashed rgba(255,255,255,0.25);}
+    .day-head .big{font-size:60px;}
+    .edit-fab{right:14px; bottom:14px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Couple Trip · 9 Days 8 Nights</div>
+    <h1>BUSAN<span>釜山慢旅</span></h1>
+
+    <div class="ticket">
+      <div class="ticket-main">
+        <div>
+          <div class="tk-label">Departure</div>
+          <div class="route"><span class="plane">✈</span><span class="city">TPE</span></div>
+          <div class="tk-value">2026.09.10　12:00</div>
+        </div>
+        <div>
+          <div class="tk-label">Arrival</div>
+          <div class="route"><span class="city">PUS</span></div>
+          <div class="tk-value">2026.09.10　15:30</div>
+        </div>
+        <div>
+          <div class="tk-label">Flight</div>
+          <div class="flight-num">KE2086</div>
+          <div class="tk-value" style="margin-top:2px;">大韓航空</div>
+        </div>
+      </div>
+      <div class="ticket-stub">
+        <div class="tk-label">Return</div>
+        <div class="tk-value">09.18　PUS→TPE</div>
+        <div class="tk-label">09:00 — 10:30</div>
+        <div class="tk-value" style="margin-bottom:0;">KE2085</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lodging">
+    <div class="lodge-card">
+      <div class="lg-label">住宿 1</div>
+      <div class="lg-area">廣安里</div>
+      <div class="lg-date">9/10 – 9/14（4晚）</div>
+    </div>
+    <div class="lodge-card">
+      <div class="lg-label">住宿 2</div>
+      <div class="lg-area">南浦洞</div>
+      <div class="lg-date">9/14 – 9/18（4晚）</div>
+    </div>
+  </div>
+</section>
+
+<nav class="daynav" id="daynav"></nav>
+
+<main id="days"></main>
+
+<footer>
+  <div class="wave">〜 SEE YOU IN BUSAN 〜</div>
+  釜山情侶行程 · 2026.09.10 – 09.18
+</footer>
+
+<div class="edit-fab" id="editFab">
+  <button id="saveEdit">💾 儲存變更</button>
+  <button id="resetEdit">↺ 還原預設</button>
+  <button id="toggleEdit">✏️ 編輯文字</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- 編輯密碼鎖：只有你知道密碼才能進入編輯模式 -->
+<div id="lockOverlay" class="hidden">
+  <div class="lock-box">
+    <h3>🔒 編輯權限</h3>
+    <p>請輸入編輯密碼才能修改行程內容</p>
+    <input type="password" id="lockInput" placeholder="密碼">
+    <button id="lockSubmit">解鎖</button>
+    <div class="err" id="lockErr"></div>
+  </div>
+</div>
+
+<script type="module">
+/* ============ Firebase 初始化 ============ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB99a_Sn42t_nrKU5SARh8HMT5znt3PWVo",
+  authDomain: "busan-trip-61601.firebaseapp.com",
+  databaseURL: "https://busan-trip-61601-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "busan-trip-61601",
+  storageBucket: "busan-trip-61601.firebasestorage.app",
+  messagingSenderId: "120684180863",
+  appId: "1:120684180863:web:e3998e827a7ae2f80b964a"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const db = getDatabase(fbApp);
+
+/* ============ 編輯密碼（自行修改成你要的密碼） ============ */
+const EDIT_PASSWORD = "busan2026";
+
+/* ============ 內容資料 ============ */
+const DEFAULT_DAYS = [
+{date:"9/10（四）",title:"抵達南浦洞",tag:"入境日",lodge:"住宿：廣安里",items:[
+ {t:"15:30",c:"",h:"抵達金海國際機場",p:"入境、領行李，計程車前往廣安里飯店，車程約45分鐘（約₩35,000-40,000）。"},
+ {t:"17:00",c:"",h:"飯店 Check-in",p:"放行李、換裝，準備夜遊廣安里。"},
+ {t:"18:30",c:"",h:"廣安里海灘散步",p:"抵達第一晚，先讓身體適應時差，沿海邊慢慢走走就好。"},
+ {t:"19:30",c:"food",h:"晚餐：廣安里海鮮／烤肉",p:"面海座位為佳，輕鬆吃一頓收尾。"},
+],tip:"抵達當天別排太滿，先讓身體適應步調，晚上散步式逛街最剛好。"},
+
+{date:"9/11（五）",title:"海雲台．海景一日",tag:"海邊",lodge:"住宿：廣安里",items:[
+ {t:"08:00",c:"food",h:"早餐：大海鮑魚粥 바다마루전복죽",p:"尾浦藍線廣場附近，粥香濃郁、鮑魚料多，建議8-9點抵達避開排隊。"},
+ {t:"09:30",c:"",h:"海雲台海水浴場散步",p:"清晨沙灘人潮較少，適合拍照放空。"},
+ {t:"12:30",c:"food",h:"午餐：水邊最高豬肉湯飯",p:"跟鮑魚粥同一區，順路品嚐釜山代表美食豬肉湯飯。"},
+ {t:"14:30",c:"",h:"咖啡廳休息",p:"迎月路或市場周邊找間喜歡的咖啡廳歇腳。"},
+ {t:"17:30",c:"",h:"天空膠囊列車（去程，尾浦→青沙浦）",p:"建議提前3-4週、逢週二上官網搶日落場，付費體驗，單程即可。"},
+ {t:"18:15",c:"",h:"沿海岸走路回尾浦",p:"沿舊鐵道旁的海岸散步道走回去，全程約20-40分鐘、免費，會經過免費的海月展望台，傍晚走特別美，是很多情侶會做的路線。這樣海岸列車整趟行程只會用到一次（留給Day4去機張那趟用VBP兌換），不用糾結該不該開卡。"},
+ {t:"19:00",c:"food",h:"晚餐：海雲台소면（밀면）",p:"釜山限定的小麥冷麵，酸甜開胃，記得加點韓式餃子。"},
+ {t:"20:00",c:"food",h:"海雲台市場糖餅",p:"市場尾端排隊名店，甜甜的收尾點心。"},
+],tip:null,rain:"SEA LIFE水族館、Busan X the Sky都是室內景點，可隨時替換上半天的戶外行程。",trap:"海雲台正前方連鎖咖啡廳景觀費偏貴，往迎月路巷子裡走2分鐘，一樣看得到海、價格砍半。"},
+
+{date:"9/12（六）",title:"廣安里．遊艇＋無人機秀",tag:"海邊＋購物",lodge:"住宿：廣安里",items:[
+ {t:"08:00",c:"food",h:"早餐：All Sunday Bagel",p:"廣安里海灘正對面本店，面海座位吃現烤貝果，08:00開門、週三公休。"},
+ {t:"09:30",c:"",h:"廣安里海灘散步",p:"正面就是廣安大橋，白天海景清爽療癒。"},
+ {t:"13:30",c:"",h:"Centum City 新世界百貨購物",p:"全球最大百貨公司，全釜山僅此一間，逛街、美妝、免稅品採購。"},
+ {t:"15:30",c:"food",h:"Voila Cafe（Marine City）",p:"海雲台馬林城的鹽味冰淇淋名店，隔著海灣正對廣安大橋，適合拍照歇腳。"},
+ {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在廣安里附近，適合情侶的約會氣氛。"},
+ {t:"18:00",c:"pass",h:"鑽石灣遊艇（夜間場）",p:"VBP免費、現場加付₩5,000/人，繞行廣安大橋看夜景，全程50分鐘。【48小時VBP從這裡開卡】"},
+ {t:"20:00",c:"",h:"廣安里M無人機燈光秀",p:"免費，海灘任一位置都看得到，不用另外包遊艇看秀。"},
+],tip:null,rain:"遊艇、無人機秀都可能因雨取消（官網當天公告），備案是百貨內續攤或Spa Land Centum City。",trap:"不用花錢包遊艇專門看無人機秀——遊艇上視角不一定比較好，把遊艇跟秀分開排、順序接起來就好。"},
+
+{date:"9/13（日）",title:"機張日：Luge・樂天世界・汗蒸幕",tag:"樂園＋放鬆",lodge:"住宿：廣安里",items:[
+ {t:"09:30",c:"pass",h:"海雲台海岸列車（當交通用）",p:"VBP免費，從尾浦搭往松亭站方向，順路當作前往機張的交通方式。"},
+ {t:"11:00",c:"",h:"轉車至機張Osiria園區",p:"計程車約15分鐘。"},
+ {t:"12:00",c:"food",h:"午餐：Skyline Luge旁美食街",p:"或樂天Outlet美食街簡單解決。"},
+ {t:"13:00",c:"pass",h:"Skyline Luge 斜坡滑車",p:"VBP免費，含高空纜車，園區內另一大亮點。"},
+ {t:"15:00",c:"pass",h:"樂天世界 Adventure 釜山",p:"VBP免費，城堡、遊行、雲霄飛車，可以玩到接近打烊。"},
+ {t:"19:00",c:"pass",h:"ClubD Oasis 海景汗蒸幕",p:"VBP免費，回程順路到海雲台放鬆，紓解一整天走路的疲勞。"},
+ {t:"20:30",c:"food",h:"晚餐：海雲台簡單吃",p:"輕鬆收尾即可。"},
+],tip:null,rain:"Skyline Luge小雨仍可玩、大雨停駛；若預報不佳，建議整天跟Day5互換。",trap:"Luge出口的紀念照片系統偏貴，自己在指定拍照點用手機拍就好。"},
+
+{date:"9/14（一）",title:"松島．甘川洞．轉住南浦洞",tag:"文化村＋纜車",lodge:"住宿：廣安里→南浦洞",items:[
+ {t:"09:30",c:"pass",h:"松島海上纜車（水晶車廂）",p:"VBP免費，腳下透明玻璃車廂凌空飛越海面。建議開館前抵達避開排隊。"},
+ {t:"11:00",c:"",h:"松島天空步道散步",p:"免費，沿海岸線延伸的步道。"},
+ {t:"12:30",c:"food",h:"午餐：松島海景餐廳",p:"落地窗海景座位。"},
+ {t:"14:00",c:"pass",h:"甘川文化村＋韓服體驗",p:"韓服VBP免費，租借約1小時含編髮。入口第一間店常排隊，往裡面巷子多走2分鐘還有2-3家人少很多。"},
+ {t:"16:30",c:"",h:"轉住南浦洞",p:"計程車約15分鐘，退廣安里飯店、住進南浦洞飯店。"},
+ {t:"17:30",c:"pass",h:"ARTE MUSEUM",p:"VBP免費，影島沉浸式光影展，記得在48小時效期內完成（最晚別超過當天18:00左右）。"},
+ {t:"19:00",c:"food",h:"晚餐：南浦洞海鮮",p:"入住新環境後的第一餐，輕鬆吃。"},
+],tip:null,rain:"本身室內項目多（ARTE MUSEUM），是很好的雨天調度日，可跟Day4互換。"},
+
+{date:"9/15（二）",title:"札嘎其市場．南浦購物",tag:"市場＋購物",lodge:"住宿：南浦洞",items:[
+ {t:"10:00",c:"food",h:"午餐：札嘎其市場生魚片",p:"樓下挑海鮮、樓上現點現吃，釜山最具代表性的海產市場。"},
+ {t:"12:30",c:"",h:"BIFF廣場．國際市場．富平罐頭市場",p:"逛街挖寶、免費。"},
+ {t:"15:00",c:"",h:"樂天百貨光復店購物",p:"品牌齊全，也適合退稅、買伴手禮。"},
+ {t:"17:30",c:"view",h:"龍頭山公園纜車看夕陽",p:"傍晚時段搭乘最美。"},
+ {t:"19:00",c:"food",h:"晚餐：富平洞豬腳一條街",p:"選一間人氣老店收尾。"},
+],tip:null,trap:"市場樓上餐廳觀光價偏高，可以樓下自己挑海鮮，拿去旁邊小吃店代客料理（초장집），便宜很多。"},
+
+{date:"9/16（三）",title:"太宗台．白淺灘",tag:"自然景觀",lodge:"住宿：南浦洞",items:[
+ {t:"09:30",c:"",h:"太宗台循環巴士遊園",p:"搭乘園區循環車遊覽斷崖、燈塔與海景步道，全程約1.5-2小時。"},
+ {t:"12:00",c:"food",h:"午餐：影島生魚片、海鮮鍋",p:"太宗台周邊有多間老字號海鮮餐廳。"},
+ {t:"14:00",c:"",h:"白淺灘文化村散步",p:"藍白小屋沿海岸而建，人潮較少、適合慢拍。"},
+ {t:"19:00",c:"food",h:"晚餐：海鮮鍋作結",p:"以海鮮鍋或烤貝收尾這一天。"},
+],tip:null,rain:"循環巴士雨天仍可搭（車程為主），大雨改室內逛街購物。"},
+
+{date:"9/17（四）",title:"田浦咖啡街．最後採購",tag:"咖啡＋購物",lodge:"住宿：南浦洞（最後一晚）",items:[
+ {t:"10:00",c:"food",h:"田浦咖啡街早午餐",p:"釜山最文青的咖啡街，選物店、烘豆坊林立。"},
+ {t:"13:00",c:"",h:"西面地下街購物",p:"藥妝、平價服飾一次買齊。"},
+ {t:"15:30",c:"",h:"樂天超市採買伴手禮",p:"零食、泡麵、面膜最後採購，記得留行李空間。"},
+ {t:"18:30",c:"food",h:"晚餐＋炸雞收尾",p:"配啤酒的Chimaek，韓國旅行最後一晚的經典儀式。"},
+ {t:"20:30",c:"",h:"回南浦洞整理行李",p:"明天一早的班機，提前打包比較從容。"},
+],tip:null,trap:"田浦洞主街咖啡廳很多是網美店但味道普通，往巷弄裡找烘豆坊自己的直營店，CP值通常更高。"},
+
+{date:"9/18（五）",title:"賦歸",tag:"離境日",lodge:"住宿：南浦洞",items:[
+ {t:"06:30",c:"",h:"南浦洞飯店退房",p:"確認行李與證件，預留充裕交通時間。"},
+ {t:"07:00",c:"",h:"計程車前往金海機場",p:"約60分鐘車程，約₩20,000。"},
+ {t:"09:00",c:"",h:"PUS → TPE　KE2085",p:"班機起飛，結束9天8夜的釜山慢旅。"},
+ {t:"10:30",c:"",h:"抵達桃園國際機場",p:"平安返抵台灣 🛬"},
+]},
+];
+
+const VBP_DEFAULT = {
+  intro:"這趟行程把高單價景點集中在 Day3 晚上到 Day5 傍晚，剛好落在同一個48小時窗口內，直接買48小時通行證最划算。",
+  activation:"開卡技巧：Day3傍晚搭鑽石灣遊艇時就刷卡開通，這樣48小時會一路涵蓋到Day5傍晚，把ARTE MUSEUM排在時限前完成即可。",
+  rows:[
+    ["鑽石灣遊艇（夜間場）","Day3晚","₩40,000","紫"],
+    ["海雲台海岸列車","Day4","₩12,000","藍"],
+    ["Skyline Luge","Day4","₩30,000","紫"],
+    ["樂天世界 Adventure 釜山","Day4","₩47,000","紫"],
+    ["ClubD Oasis 汗蒸幕","Day4晚","₩30,000-33,000","紫"],
+    ["松島海上纜車","Day5","₩22,000","藍"],
+    ["甘川洞韓服體驗","Day5","₩12,000","藍"],
+    ["ARTE MUSEUM","Day5","₩22,000-25,000","藍"],
+  ],
+  note:"48小時通行證約₩85,000/人，換到約₩217,000+的門票價值。若遇雨導致Day3或Day4項目取消，可將「第一次刷卡」順延到下一個景點，往後推算48小時即可。"
+};
+
+let DAYS = [];
+let VBP = null;
+
+/* ============ 儲存 / 讀取（Firebase Realtime Database） ============ */
+async function loadData(){
+  try{
+    const snap = await get(ref(db, 'busan-days'));
+    DAYS = snap.exists() ? snap.val() : JSON.parse(JSON.stringify(DEFAULT_DAYS));
+  }catch(e){ console.error('讀取 busan-days 失敗:', e); DAYS = JSON.parse(JSON.stringify(DEFAULT_DAYS)); }
+  try{
+    const snapVbp = await get(ref(db, 'busan-vbp'));
+    VBP = snapVbp.exists() ? snapVbp.val() : JSON.parse(JSON.stringify(VBP_DEFAULT));
+  }catch(e){ console.error('讀取 busan-vbp 失敗:', e); VBP = JSON.parse(JSON.stringify(VBP_DEFAULT)); }
+}
+
+async function saveData(){
+  await set(ref(db, 'busan-days'), DAYS);
+  await set(ref(db, 'busan-vbp'), VBP);
+}
+
+function scrapeDaysFromDom(){
+  const out = [];
+  document.querySelectorAll('.day').forEach((sec, idx)=>{
+    const base = DAYS[idx];
+    const items = [];
+    sec.querySelectorAll('.item').forEach((it, iidx)=>{
+      items.push({
+        t: it.querySelector('.time-text').innerText.trim(),
+        c: base.items[iidx] ? base.items[iidx].c : "",
+        h: it.querySelector('h3').innerText.trim(),
+        p: it.querySelector('p').innerText.trim(),
+      });
+    });
+    const tipEl = sec.querySelector('.tipbox.main-tip');
+    const rainEl = sec.querySelector('.tipbox.rain');
+    const trapEl = sec.querySelector('.tipbox.trap');
+    out.push({
+      date: sec.querySelector('.date').innerText.trim(),
+      title: sec.querySelector('h2').innerText.trim(),
+      tag: base.tag, lodge: base.lodge,
+      items,
+      tip: tipEl ? tipEl.innerText.replace('Tip：','').trim() : null,
+      rain: rainEl ? rainEl.innerText.replace('雨備：','').trim() : null,
+      trap: trapEl ? trapEl.innerText.replace('避開陷阱：','').trim() : null,
+    });
+  });
+  return out;
+}
+
+function scrapeVbpFromDom(){
+  const panel = document.getElementById('vbpPanel');
+  if(!panel) return VBP;
+  return {
+    intro: panel.querySelector('.vbp-intro').innerText.trim(),
+    activation: panel.querySelector('.vbp-activation').innerText.trim(),
+    rows: Array.from(panel.querySelectorAll('table.vbp-table tbody tr')).map((tr,i)=>{
+      const tds = tr.querySelectorAll('td');
+      return [tds[1].innerText.trim(), tds[2].innerText.trim(), tds[3].innerText.trim(), VBP.rows[i][3]];
+    }),
+    note: panel.querySelector('.vbp-note').innerText.trim(),
+  };
+}
+
+/* ============ 渲染 ============ */
+function render(){
+  const nav = document.getElementById('daynav');
+  const wrap = document.getElementById('days');
+  nav.innerHTML = ''; wrap.innerHTML = '';
+
+  DAYS.forEach((d,i)=>{
+    const btn = document.createElement('button');
+    btn.innerHTML = `<span class="d">D${i+1}</span>${d.title}`;
+    btn.onclick = ()=>show(i);
+    nav.appendChild(btn);
+
+    const sec = document.createElement('section');
+    sec.className='day';
+    sec.id='day-'+i;
+    sec.innerHTML = `
+      <div class="day-head">
+        <div class="big num">${String(i+1).padStart(2,'0')}</div>
+        <div class="meta">
+          <div class="date editable" contenteditable="false">${d.date} · ${d.tag}</div>
+          <h2 class="serif editable" contenteditable="false">${d.title}</h2>
+        </div>
+      </div>
+      <div class="lodge-pill"><span class="dot"></span>${d.lodge||''}</div>
+      <div class="timeline">
+        ${d.items.map(it=>`
+          <div class="item ${it.c}">
+            <div class="time-row"><span class="time-text editable" contenteditable="false">${it.t}</span>${it.c==='food'?'<span class="tag">吃</span>':it.c==='view'?'<span class="tag">景</span>':it.c==='pass'?'<span class="tag">PASS</span>':''}</div>
+            <h3 class="editable" contenteditable="false">${it.h}</h3>
+            <p class="editable" contenteditable="false">${it.p}</p>
+          </div>`).join('')}
+      </div>
+      ${d.tip?`<div class="tipbox main-tip editable" contenteditable="false"><b>Tip：</b>${d.tip}</div>`:''}
+      ${d.rain?`<div class="tipbox rain editable" contenteditable="false"><b>雨備：</b>${d.rain}</div>`:''}
+      ${d.trap?`<div class="tipbox trap editable" contenteditable="false"><b>避開陷阱：</b>${d.trap}</div>`:''}
+    `;
+    wrap.appendChild(sec);
+  });
+
+  // VBP nav button
+  const vbpBtn = document.createElement('button');
+  vbpBtn.className = 'vbp-btn';
+  vbpBtn.innerHTML = `<span class="d">🎫</span>VBP攻略`;
+  vbpBtn.onclick = ()=>showVbp();
+  nav.appendChild(vbpBtn);
+
+  // VBP panel
+  const panel = document.createElement('div');
+  panel.className = 'vbp-panel';
+  panel.id = 'vbpPanel';
+  panel.innerHTML = `
+    <div class="vbp-hero">
+      <h2 class="serif">Visit Busan Pass 使用計畫</h2>
+      <p class="vbp-intro editable" contenteditable="false">${VBP.intro}</p>
+    </div>
+    <table class="vbp-table">
+      <thead><tr><th></th><th>景點</th><th>天</th><th>原價</th></tr></thead>
+      <tbody>
+        ${VBP.rows.map(r=>`<tr><td><span class="badge-purple" style="background:${r[3]==='紫'?'#8a5cf6':'#1F7A72'}"></span></td><td class="editable" contenteditable="false">${r[0]}</td><td class="editable" contenteditable="false">${r[1]}</td><td class="editable" contenteditable="false">${r[2]}</td></tr>`).join('')}
+      </tbody>
+    </table>
+    <div class="tipbox editable" contenteditable="false" style="border-left:3px solid var(--gold);"><b>開卡技巧：</b><span class="vbp-activation">${VBP.activation}</span></div>
+    <div class="tipbox vbp-note editable" contenteditable="false" style="margin-top:14px;">${VBP.note}</div>
+  `;
+  wrap.appendChild(panel);
+
+  show(0);
+}
+
+function show(i){
+  document.querySelectorAll('.day').forEach((el,idx)=>el.classList.toggle('active', idx===i));
+  document.getElementById('vbpPanel').classList.remove('active');
+  document.querySelectorAll('.daynav button').forEach((el,idx)=>el.classList.toggle('active', idx===i));
+  window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
+}
+function showVbp(){
+  document.querySelectorAll('.day').forEach(el=>el.classList.remove('active'));
+  document.getElementById('vbpPanel').classList.add('active');
+  document.querySelectorAll('.daynav button').forEach(el=>el.classList.remove('active'));
+  document.querySelector('.daynav button.vbp-btn').classList.add('active');
+  window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
+}
+
+/* ============ 編輯模式 ============ */
+let editing = false;
+let unlocked = false;
+
+function setEditable(on){
+  document.querySelectorAll('.editable').forEach(el=>el.setAttribute('contenteditable', on ? 'true':'false'));
+}
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+function enterEditing(){
+  editing = true;
+  document.body.classList.add('editing');
+  document.getElementById('editFab').classList.add('editing');
+  const btn = document.getElementById('toggleEdit');
+  btn.classList.add('on');
+  btn.textContent = '✕ 結束編輯';
+  setEditable(true);
+}
+function exitEditing(){
+  editing = false;
+  document.body.classList.remove('editing');
+  document.getElementById('editFab').classList.remove('editing');
+  const btn = document.getElementById('toggleEdit');
+  btn.classList.remove('on');
+  btn.textContent = '✏️ 編輯文字';
+  setEditable(false);
+  toast('已離開編輯模式');
+}
+
+document.getElementById('toggleEdit').addEventListener('click', ()=>{
+  if(editing){ exitEditing(); return; }
+  if(unlocked){ enterEditing(); return; }
+  document.getElementById('lockOverlay').classList.remove('hidden');
+  document.getElementById('lockInput').value = '';
+  document.getElementById('lockErr').textContent = '';
+  document.getElementById('lockInput').focus();
+});
+
+document.getElementById('lockSubmit').addEventListener('click', tryUnlock);
+document.getElementById('lockInput').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') tryUnlock();
+});
+function tryUnlock(){
+  const val = document.getElementById('lockInput').value;
+  if(val === EDIT_PASSWORD){
+    unlocked = true;
+    document.getElementById('lockOverlay').classList.add('hidden');
+    enterEditing();
+  }else{
+    document.getElementById('lockErr').textContent = '密碼錯誤，請再試一次';
+  }
+}
+
+document.getElementById('saveEdit').addEventListener('click', async ()=>{
+  DAYS = scrapeDaysFromDom();
+  VBP = scrapeVbpFromDom();
+  try{
+    await saveData();
+    toast('已儲存變更 ✓ 對方重新整理即可看到');
+  }catch(e){
+    console.error('Storage error:', e);
+    toast('儲存失敗：' + (e?.message || e));
+  }
+});
+
+document.getElementById('resetEdit').addEventListener('click', async ()=>{
+  if(!confirm('確定要還原成預設行程嗎？你手動修改過的文字會被清除。')) return;
+  DAYS = JSON.parse(JSON.stringify(DEFAULT_DAYS));
+  VBP = JSON.parse(JSON.stringify(VBP_DEFAULT));
+  try{
+    await saveData();
+  }catch(e){ console.error(e); }
+  render();
+  setEditable(editing);
+  toast('已還原為預設行程');
+});
+
+/* ============ 初始化 ============ */
+(async function init(){
+  await loadData();
+  render();
+})();
+</script>
+
+</body>
+</html>
