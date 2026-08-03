@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>釜山 BUSAN｜9/10–9/18行程</title>
+<title>釜山BUSAN｜9/10–9/18行程</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -124,6 +124,8 @@
   .daynav button.active .d{color:var(--gold);}
   .daynav button.vbp-btn{border-color:var(--gold); color:#9a7418;}
   .daynav button.vbp-btn.active{background:var(--gold); color:var(--navy-deep);}
+  .daynav button.shop-btn{border-color:var(--teal); color:var(--teal);}
+  .daynav button.shop-btn.active{background:var(--teal); color:#fff;}
 
   /* ---------- DAY SECTIONS ---------- */
   main{max-width:820px; margin:0 auto; padding:50px 20px 40px;}
@@ -236,6 +238,76 @@
   }
   .lock-box .err{color:var(--coral); font-size:12px; height:16px; margin-top:8px;}
 
+  /* 編輯模式下才顯示的結構控制項（排序／分類／新增／刪除） */
+  .edit-ctrl{display:none;}
+  body.editing .edit-ctrl{display:inline-flex;}
+  .item-ctrl{
+    display:none; gap:6px; align-items:center; margin-bottom:8px; flex-wrap:wrap;
+  }
+  body.editing .item-ctrl{display:flex;}
+  .item-ctrl select, .item-ctrl button{
+    font-size:12px; padding:3px 8px; border-radius:6px;
+    border:1px solid rgba(14,42,71,0.2); background:#fff; color:var(--navy);
+    cursor:pointer; font-family:'Noto Sans TC';
+  }
+  .item-ctrl button:hover{background:rgba(14,42,71,0.06);}
+  .item-ctrl button.danger{border-color:rgba(255,107,78,0.4); color:var(--coral);}
+  .item-ctrl button.danger:hover{background:rgba(255,107,78,0.08);}
+  .day-ctrl{
+    display:none; gap:8px; margin-left:auto; padding-bottom:8px;
+  }
+  body.editing .day-ctrl{display:flex;}
+  .day-ctrl button{
+    font-size:12px; padding:5px 12px; border-radius:999px;
+    border:1px solid rgba(14,42,71,0.2); background:#fff; color:var(--navy);
+    cursor:pointer; font-weight:700; font-family:'Noto Sans TC';
+  }
+  .day-ctrl button:hover{background:rgba(14,42,71,0.06);}
+  .day-head{flex-wrap:wrap;}
+  .add-day-item{
+    display:none; margin-top:10px; padding:10px 16px; border-radius:10px;
+    border:1.5px dashed rgba(14,42,71,0.3); background:transparent; color:var(--navy);
+    font-weight:700; font-size:13px; cursor:pointer; width:100%; font-family:'Noto Sans TC';
+  }
+  body.editing .add-day-item{display:block;}
+  .add-day-item:hover{background:rgba(14,42,71,0.05);}
+
+  /* 交通方式列 */
+  .transport-row{
+    display:none; align-items:center; gap:6px; font-size:12.5px;
+    color:#5a7382; margin:2px 0 8px;
+  }
+  .transport-row:not(.is-empty){display:flex;}
+  .transport-icon{font-size:13px;}
+  .transport-text{outline:none;}
+  .transport-text:empty:before{content:attr(data-placeholder); color:#aab8c2; font-style:italic;}
+  body.editing .transport-row{display:flex;}
+
+  /* 購物清單 */
+  .shop-panel{display:none;}
+  .shop-panel.active{display:block; animation:fade .4s ease;}
+  .shop-list{background:#fff; border:1px solid rgba(14,42,71,0.1); border-radius:14px; overflow:hidden;}
+  .shop-item{
+    display:flex; align-items:center; gap:12px; padding:13px 18px;
+    border-bottom:1px solid rgba(14,42,71,0.08);
+  }
+  .shop-item:last-child{border-bottom:none;}
+  .shop-item input[type=checkbox]{width:18px; height:18px; accent-color:var(--teal); cursor:pointer; flex:0 0 auto;}
+  .shop-item .shop-text{flex:1; font-size:14.5px; outline:none; border-radius:4px; padding:2px 4px;}
+  .shop-item .shop-text:hover{background:rgba(31,122,114,0.06);}
+  .shop-item .shop-text:focus{outline:1.5px solid var(--teal); background:rgba(31,122,114,0.08);}
+  .shop-item.done .shop-text{text-decoration:line-through; color:#9aa9b6;}
+  .shop-item button.danger{
+    flex:0 0 auto; font-size:12px; padding:3px 8px; border-radius:6px;
+    border:1px solid rgba(255,107,78,0.4); color:var(--coral); background:#fff; cursor:pointer;
+  }
+  .shop-add-btn{
+    margin-top:10px; padding:10px 16px; border-radius:10px;
+    border:1.5px dashed rgba(31,122,114,0.4); background:transparent; color:var(--teal);
+    font-weight:700; font-size:13px; cursor:pointer; width:100%; font-family:'Noto Sans TC';
+  }
+  .shop-add-btn:hover{background:rgba(31,122,114,0.06);}
+
   @media(max-width:640px){
     .ticket{flex-direction:column;}
     .ticket-stub{border-left:none; border-top:2px dashed rgba(255,255,255,0.25);}
@@ -338,7 +410,7 @@ const fbApp = initializeApp(firebaseConfig);
 const db = getDatabase(fbApp);
 
 /* ============ 編輯密碼（自行修改成你要的密碼） ============ */
-const EDIT_PASSWORD = "busan2026";
+const EDIT_PASSWORD = "2026";
 
 /* ============ 內容資料 ============ */
 const DEFAULT_DAYS = [
@@ -365,7 +437,7 @@ const DEFAULT_DAYS = [
  {t:"09:30",c:"",h:"廣安里海灘散步",p:"正面就是廣安大橋，白天海景清爽療癒。"},
  {t:"13:30",c:"",h:"Centum City 新世界百貨購物",p:"全球最大百貨公司，全釜山僅此一間，逛街、美妝、免稅品採購。"},
  {t:"15:30",c:"food",h:"Voila Cafe（Marine City）",p:"海雲台馬林城的鹽味冰淇淋名店，隔著海灣正對廣安大橋，適合拍照歇腳。"},
- {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在廣安里附近，適合情侶的約會氣氛。"},
+ {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在廣安里附近。"},
  {t:"18:00",c:"pass",h:"鑽石灣遊艇（夜間場）",p:"VBP免費、現場加付₩5,000/人，繞行廣安大橋看夜景，全程50分鐘。【48小時VBP從這裡開卡】"},
  {t:"20:00",c:"",h:"廣安里M無人機燈光秀",p:"免費，海灘任一位置都看得到，不用另外包遊艇看秀。"},
 ],tip:null,rain:"遊艇、無人機秀都可能因雨取消（官網當天公告），備案是百貨內續攤或Spa Land Centum City。",trap:"不用花錢包遊艇專門看無人機秀——遊艇上視角不一定比較好，把遊艇跟秀分開排、順序接起來就好。"},
@@ -439,22 +511,43 @@ const VBP_DEFAULT = {
 
 let DAYS = [];
 let VBP = null;
+let SHOPPING = [];
+
+const SHOPPING_DEFAULT = [
+  {name:"面膜", done:false},
+  {name:"泡菜／調味料", done:false},
+  {name:"燒酒／韓國啤酒", done:false},
+  {name:"零食（辣雞腳、蝦餅）", done:false},
+];
+
+/* 確保每個行程項目都有 tr（交通方式）欄位，避免舊資料缺欄位報錯 */
+function normalizeItem(it){
+  return { t: it.t||'', c: it.c||'', h: it.h||'', p: it.p||'', tr: it.tr||'' };
+}
+function normalizeDays(days){
+  return days.map(d=>({ ...d, items: (d.items||[]).map(normalizeItem) }));
+}
 
 /* ============ 儲存 / 讀取（Firebase Realtime Database） ============ */
 async function loadData(){
   try{
     const snap = await get(ref(db, 'busan-days'));
-    DAYS = snap.exists() ? snap.val() : JSON.parse(JSON.stringify(DEFAULT_DAYS));
-  }catch(e){ console.error('讀取 busan-days 失敗:', e); DAYS = JSON.parse(JSON.stringify(DEFAULT_DAYS)); }
+    DAYS = normalizeDays(snap.exists() ? snap.val() : JSON.parse(JSON.stringify(DEFAULT_DAYS)));
+  }catch(e){ console.error('讀取 busan-days 失敗:', e); DAYS = normalizeDays(JSON.parse(JSON.stringify(DEFAULT_DAYS))); }
   try{
     const snapVbp = await get(ref(db, 'busan-vbp'));
     VBP = snapVbp.exists() ? snapVbp.val() : JSON.parse(JSON.stringify(VBP_DEFAULT));
   }catch(e){ console.error('讀取 busan-vbp 失敗:', e); VBP = JSON.parse(JSON.stringify(VBP_DEFAULT)); }
+  try{
+    const snapShop = await get(ref(db, 'busan-shopping'));
+    SHOPPING = snapShop.exists() ? snapShop.val() : JSON.parse(JSON.stringify(SHOPPING_DEFAULT));
+  }catch(e){ console.error('讀取 busan-shopping 失敗:', e); SHOPPING = JSON.parse(JSON.stringify(SHOPPING_DEFAULT)); }
 }
 
 async function saveData(){
   await set(ref(db, 'busan-days'), DAYS);
   await set(ref(db, 'busan-vbp'), VBP);
+  await set(ref(db, 'busan-shopping'), SHOPPING);
 }
 
 function scrapeDaysFromDom(){
@@ -462,12 +555,15 @@ function scrapeDaysFromDom(){
   document.querySelectorAll('.day').forEach((sec, idx)=>{
     const base = DAYS[idx];
     const items = [];
-    sec.querySelectorAll('.item').forEach((it, iidx)=>{
+    sec.querySelectorAll('.item').forEach((it)=>{
+      const sel = it.querySelector('.cat-select');
+      const trEl = it.querySelector('.transport-text');
       items.push({
         t: it.querySelector('.time-text').innerText.trim(),
-        c: base.items[iidx] ? base.items[iidx].c : "",
+        c: sel ? sel.value : "",
         h: it.querySelector('h3').innerText.trim(),
         p: it.querySelector('p').innerText.trim(),
+        tr: trEl ? trEl.innerText.trim() : "",
       });
     });
     const tipEl = sec.querySelector('.tipbox.main-tip');
@@ -482,6 +578,17 @@ function scrapeDaysFromDom(){
       rain: rainEl ? rainEl.innerText.replace('雨備：','').trim() : null,
       trap: trapEl ? trapEl.innerText.replace('避開陷阱：','').trim() : null,
     });
+  });
+  return out;
+}
+
+function scrapeShopFromDom(){
+  const rows = document.querySelectorAll('.shop-item');
+  const out = [];
+  rows.forEach(row=>{
+    const textEl = row.querySelector('.shop-text');
+    const cb = row.querySelector('input[type=checkbox]');
+    out.push({ name: textEl ? textEl.innerText.trim() : '', done: cb ? cb.checked : false });
   });
   return out;
 }
@@ -522,16 +629,37 @@ function render(){
           <div class="date editable" contenteditable="false">${d.date} · ${d.tag}</div>
           <h2 class="serif editable" contenteditable="false">${d.title}</h2>
         </div>
+        <div class="day-ctrl">
+          <button onclick="window.moveDay(${i},-1)">↑ 提前一天</button>
+          <button onclick="window.moveDay(${i},1)">↓ 延後一天</button>
+        </div>
       </div>
       <div class="lodge-pill"><span class="dot"></span>${d.lodge||''}</div>
       <div class="timeline">
-        ${d.items.map(it=>`
+        ${d.items.map((it,idx)=>`
           <div class="item ${it.c}">
+            <div class="item-ctrl">
+              <select class="cat-select" onchange="window.changeCategory(${i},${idx},this.value)">
+                <option value=""${it.c===''?' selected':''}>無標籤</option>
+                <option value="food"${it.c==='food'?' selected':''}>🍜 吃</option>
+                <option value="view"${it.c==='view'?' selected':''}>🌅 景</option>
+                <option value="pass"${it.c==='pass'?' selected':''}>🎫 PASS</option>
+              </select>
+              <button onclick="window.moveItem(${i},${idx},-1)" title="上移">↑ 上移</button>
+              <button onclick="window.moveItem(${i},${idx},1)" title="下移">↓ 下移</button>
+              <button onclick="window.addItem(${i},${idx})" title="在下方新增一項">＋ 新增</button>
+              <button class="danger" onclick="window.deleteItem(${i},${idx})" title="刪除此項">✕ 刪除</button>
+            </div>
             <div class="time-row"><span class="time-text editable" contenteditable="false">${it.t}</span>${it.c==='food'?'<span class="tag">吃</span>':it.c==='view'?'<span class="tag">景</span>':it.c==='pass'?'<span class="tag">PASS</span>':''}</div>
+            <div class="transport-row${it.tr?'':' is-empty'}">
+              <span class="transport-icon">🚕</span>
+              <span class="transport-text editable" contenteditable="false" data-placeholder="點此新增交通方式與時間，例如：計程車・約15分鐘">${it.tr||''}</span>
+            </div>
             <h3 class="editable" contenteditable="false">${it.h}</h3>
             <p class="editable" contenteditable="false">${it.p}</p>
           </div>`).join('')}
       </div>
+      <button class="add-day-item" onclick="window.addItem(${i},${d.items.length-1})">＋ 在本日最後新增一項行程</button>
       ${d.tip?`<div class="tipbox main-tip editable" contenteditable="false"><b>Tip：</b>${d.tip}</div>`:''}
       ${d.rain?`<div class="tipbox rain editable" contenteditable="false"><b>雨備：</b>${d.rain}</div>`:''}
       ${d.trap?`<div class="tipbox trap editable" contenteditable="false"><b>避開陷阱：</b>${d.trap}</div>`:''}
@@ -545,6 +673,13 @@ function render(){
   vbpBtn.innerHTML = `<span class="d">🎫</span>VBP攻略`;
   vbpBtn.onclick = ()=>showVbp();
   nav.appendChild(vbpBtn);
+
+  // 購物清單 nav button
+  const shopBtn = document.createElement('button');
+  shopBtn.className = 'shop-btn';
+  shopBtn.innerHTML = `<span class="d">🛍</span>購物清單`;
+  shopBtn.onclick = ()=>showShop();
+  nav.appendChild(shopBtn);
 
   // VBP panel
   const panel = document.createElement('div');
@@ -566,20 +701,57 @@ function render(){
   `;
   wrap.appendChild(panel);
 
+  // 購物清單 panel
+  const shopPanel = document.createElement('div');
+  shopPanel.className = 'shop-panel';
+  shopPanel.id = 'shopPanel';
+  wrap.appendChild(shopPanel);
+  renderShopPanel();
+
   show(0);
+}
+
+function renderShopPanel(){
+  const shopPanel = document.getElementById('shopPanel');
+  if(!shopPanel) return;
+  shopPanel.innerHTML = `
+    <div class="vbp-hero">
+      <h2 class="serif">購物清單</h2>
+      <p style="margin:0; font-size:13.5px; color:#5a6b7a;">這裡不用密碼，勾選、新增、刪除、改名稱任何人都能直接操作，會即時同步。</p>
+    </div>
+    <div class="shop-list">
+      ${SHOPPING.map((s,i)=>`
+        <div class="shop-item ${s.done?'done':''}">
+          <input type="checkbox" ${s.done?'checked':''} onchange="window.toggleShopItem(${i}, this.checked)">
+          <span class="shop-text" contenteditable="true">${s.name}</span>
+          <button class="danger" onclick="window.deleteShopItem(${i})" title="刪除">✕</button>
+        </div>`).join('')}
+    </div>
+    <button class="shop-add-btn" onclick="window.addShopItem()">＋ 新增購物項目</button>
+  `;
 }
 
 function show(i){
   document.querySelectorAll('.day').forEach((el,idx)=>el.classList.toggle('active', idx===i));
   document.getElementById('vbpPanel').classList.remove('active');
+  document.getElementById('shopPanel').classList.remove('active');
   document.querySelectorAll('.daynav button').forEach((el,idx)=>el.classList.toggle('active', idx===i));
   window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
 }
 function showVbp(){
   document.querySelectorAll('.day').forEach(el=>el.classList.remove('active'));
   document.getElementById('vbpPanel').classList.add('active');
+  document.getElementById('shopPanel').classList.remove('active');
   document.querySelectorAll('.daynav button').forEach(el=>el.classList.remove('active'));
   document.querySelector('.daynav button.vbp-btn').classList.add('active');
+  window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
+}
+function showShop(){
+  document.querySelectorAll('.day').forEach(el=>el.classList.remove('active'));
+  document.getElementById('vbpPanel').classList.remove('active');
+  document.getElementById('shopPanel').classList.add('active');
+  document.querySelectorAll('.daynav button').forEach(el=>el.classList.remove('active'));
+  document.querySelector('.daynav button.shop-btn').classList.add('active');
   window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
 }
 
@@ -641,9 +813,132 @@ function tryUnlock(){
   }
 }
 
+/* 結構編輯前，先把畫面上目前的文字同步進 DAYS/VBP，避免其他欄位的修改被蓋掉 */
+function syncFromDom(){
+  DAYS = scrapeDaysFromDom();
+  VBP = scrapeVbpFromDom();
+}
+/* 重新渲染後，如果原本在編輯模式，要把 contenteditable 重新打開 */
+function resumeEditingIfNeeded(){
+  if(editing) setEditable(true);
+}
+
+function moveItem(dayIdx, itemIdx, dir){
+  syncFromDom();
+  const arr = DAYS[dayIdx].items;
+  const j = itemIdx + dir;
+  if(j < 0 || j >= arr.length) return;
+  [arr[itemIdx], arr[j]] = [arr[j], arr[itemIdx]];
+  render();
+  resumeEditingIfNeeded();
+  show(dayIdx);
+  toast('已調整順序（記得按儲存）');
+}
+
+function deleteItem(dayIdx, itemIdx){
+  syncFromDom();
+  if(!confirm('確定要刪除這個行程項目嗎？')) return;
+  DAYS[dayIdx].items.splice(itemIdx, 1);
+  render();
+  resumeEditingIfNeeded();
+  show(dayIdx);
+  toast('已刪除（記得按儲存）');
+}
+
+function addItem(dayIdx, afterIdx){
+  syncFromDom();
+  DAYS[dayIdx].items.splice(afterIdx + 1, 0, {t:'00:00', c:'', h:'新行程項目', p:'點這裡編輯內容...', tr:''});
+  render();
+  resumeEditingIfNeeded();
+  show(dayIdx);
+  toast('已新增一項，請編輯內容並儲存');
+}
+
+function changeCategory(dayIdx, itemIdx, val){
+  syncFromDom();
+  DAYS[dayIdx].items[itemIdx].c = val;
+  render();
+  resumeEditingIfNeeded();
+  show(dayIdx);
+  toast('已更新標籤（記得按儲存）');
+}
+
+function moveDay(dayIdx, dir){
+  syncFromDom();
+  const j = dayIdx + dir;
+  if(j < 0 || j >= DAYS.length) return;
+  [DAYS[dayIdx], DAYS[j]] = [DAYS[j], DAYS[dayIdx]];
+  render();
+  resumeEditingIfNeeded();
+  show(j);
+  toast('已調整天數順序（記得按儲存）');
+}
+
+/* ---- 購物清單：完全不需密碼，勾選／新增／刪除／改名稱都直接即時同步 ---- */
+async function saveShoppingNow(){
+  try{
+    await set(ref(db, 'busan-shopping'), SHOPPING);
+  }catch(e){
+    console.error('儲存購物清單失敗:', e);
+    toast('購物清單儲存失敗，請檢查網路');
+  }
+}
+
+async function toggleShopItem(idx, checked){
+  SHOPPING = scrapeShopFromDom();
+  SHOPPING[idx].done = checked;
+  const row = document.querySelectorAll('.shop-item')[idx];
+  if(row) row.classList.toggle('done', checked);
+  await saveShoppingNow();
+}
+
+async function addShopItem(){
+  SHOPPING = scrapeShopFromDom();
+  SHOPPING.push({name:'新項目', done:false});
+  renderShopPanel();
+  await saveShoppingNow();
+  toast('已新增購物項目');
+}
+
+async function deleteShopItem(idx){
+  SHOPPING = scrapeShopFromDom();
+  if(!confirm('確定要刪除這個購物項目嗎？')) return;
+  SHOPPING.splice(idx, 1);
+  renderShopPanel();
+  await saveShoppingNow();
+  toast('已刪除');
+}
+
+// 讓 HTML 內的 onclick 可以呼叫到這些函式（module script 預設不會外露到全域）
+window.moveItem = moveItem;
+window.deleteItem = deleteItem;
+window.addItem = addItem;
+window.changeCategory = changeCategory;
+window.moveDay = moveDay;
+window.toggleShopItem = toggleShopItem;
+window.addShopItem = addShopItem;
+window.deleteShopItem = deleteShopItem;
+
+// 交通方式欄位邊打字邊即時判斷是否為空（決定離開編輯模式後要不要隱藏這一行）
+document.getElementById('days').addEventListener('input', (e)=>{
+  if(e.target.classList && e.target.classList.contains('transport-text')){
+    const row = e.target.closest('.transport-row');
+    if(row) row.classList.toggle('is-empty', e.target.innerText.trim()==='');
+  }
+});
+
+// 購物清單文字編輯完、游標移開時自動存檔（不需要按儲存按鈕）
+document.getElementById('days').addEventListener('focusout', (e)=>{
+  if(e.target.classList && e.target.classList.contains('shop-text')){
+    SHOPPING = scrapeShopFromDom();
+    saveShoppingNow();
+  }
+});
+
 document.getElementById('saveEdit').addEventListener('click', async ()=>{
   DAYS = scrapeDaysFromDom();
   VBP = scrapeVbpFromDom();
+  SHOPPING = scrapeShopFromDom();
   try{
     await saveData();
     toast('已儲存變更 ✓ 對方重新整理即可看到');
@@ -654,9 +949,10 @@ document.getElementById('saveEdit').addEventListener('click', async ()=>{
 });
 
 document.getElementById('resetEdit').addEventListener('click', async ()=>{
-  if(!confirm('確定要還原成預設行程嗎？你手動修改過的文字會被清除。')) return;
-  DAYS = JSON.parse(JSON.stringify(DEFAULT_DAYS));
+  if(!confirm('確定要還原成預設行程嗎？你手動修改過的文字、購物清單都會被清除。')) return;
+  DAYS = normalizeDays(JSON.parse(JSON.stringify(DEFAULT_DAYS)));
   VBP = JSON.parse(JSON.stringify(VBP_DEFAULT));
+  SHOPPING = JSON.parse(JSON.stringify(SHOPPING_DEFAULT));
   try{
     await saveData();
   }catch(e){ console.error(e); }
