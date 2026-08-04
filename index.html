@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>釜山BUSAN｜9/10–9/18行程</title>
+<title>釜山 BUSAN｜9/10–9/18 情侶行程</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -126,6 +126,8 @@
   .daynav button.vbp-btn.active{background:var(--gold); color:var(--navy-deep);}
   .daynav button.shop-btn{border-color:var(--teal); color:var(--teal);}
   .daynav button.shop-btn.active{background:var(--teal); color:#fff;}
+  .daynav button.notes-btn{border-color:#8a5cf6; color:#6a3fd1;}
+  .daynav button.notes-btn.active{background:#8a5cf6; color:#fff;}
 
   /* ---------- DAY SECTIONS ---------- */
   main{max-width:820px; margin:0 auto; padding:50px 20px 40px;}
@@ -308,6 +310,17 @@
   }
   .shop-add-btn:hover{background:rgba(31,122,114,0.06);}
 
+  /* 筆記本 */
+  .notes-panel{display:none;}
+  .notes-panel.active{display:block; animation:fade .4s ease;}
+  .notes-box{
+    background:#fff; border:1px solid rgba(14,42,71,0.1); border-radius:14px;
+    padding:22px 24px; min-height:340px; font-size:14.5px; line-height:1.9;
+    color:var(--ink); outline:none; white-space:pre-wrap; word-break:break-word;
+  }
+  .notes-box:focus{outline:1.5px solid #8a5cf6; background:rgba(138,92,246,0.03);}
+  .notes-box:empty:before{content:attr(data-placeholder); color:#aab8c2; font-style:italic;}
+
   @media(max-width:640px){
     .ticket{flex-direction:column;}
     .ticket-stub{border-left:none; border-top:2px dashed rgba(255,255,255,0.25);}
@@ -427,7 +440,7 @@ const DEFAULT_DAYS = [
  {t:"12:30",c:"food",h:"午餐：水邊最高豬肉湯飯",p:"跟鮑魚粥同一區，順路品嚐釜山代表美食豬肉湯飯。"},
  {t:"14:30",c:"",h:"咖啡廳休息",p:"迎月路或市場周邊找間喜歡的咖啡廳歇腳。"},
  {t:"17:30",c:"",h:"天空膠囊列車（去程，尾浦→青沙浦）",p:"建議提前3-4週、逢週二上官網搶日落場，付費體驗，單程即可。"},
- {t:"18:15",c:"",h:"沿海岸走路回尾浦",p:"沿舊鐵道旁的海岸散步道走回去，全程約20-40分鐘、免費，會經過免費的海月展望台，傍晚走特別美。這樣海岸列車整趟行程只會用到一次（留給Day4去機張那趟用VBP兌換），不用糾結該不該開卡。"},
+ {t:"18:15",c:"",h:"沿海岸走路回尾浦",p:"沿舊鐵道旁的海岸散步道走回去，全程約20-40分鐘、免費，會經過免費的海月展望台，傍晚走特別美，是很多情侶會做的路線。這樣海岸列車整趟行程只會用到一次（留給Day4去機張那趟用VBP兌換），不用糾結該不該開卡。"},
  {t:"19:00",c:"food",h:"晚餐：海雲台소면（밀면）",p:"釜山限定的小麥冷麵，酸甜開胃，記得加點韓式餃子。"},
  {t:"20:00",c:"food",h:"海雲台市場糖餅",p:"市場尾端排隊名店，甜甜的收尾點心。"},
 ],tip:null,rain:"SEA LIFE水族館、Busan X the Sky都是室內景點，可隨時替換上半天的戶外行程。",trap:"海雲台正前方連鎖咖啡廳景觀費偏貴，往迎月路巷子裡走2分鐘，一樣看得到海、價格砍半。"},
@@ -437,7 +450,7 @@ const DEFAULT_DAYS = [
  {t:"09:30",c:"",h:"廣安里海灘散步",p:"正面就是廣安大橋，白天海景清爽療癒。"},
  {t:"13:30",c:"",h:"Centum City 新世界百貨購物",p:"全球最大百貨公司，全釜山僅此一間，逛街、美妝、免稅品採購。"},
  {t:"15:30",c:"food",h:"Voila Cafe（Marine City）",p:"海雲台馬林城的鹽味冰淇淋名店，隔著海灣正對廣安大橋，適合拍照歇腳。"},
- {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在廣安里附近。"},
+ {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在廣安里附近，適合情侶的約會氣氛。"},
  {t:"18:00",c:"pass",h:"鑽石灣遊艇（夜間場）",p:"VBP免費、現場加付₩5,000/人，繞行廣安大橋看夜景，全程50分鐘。【48小時VBP從這裡開卡】"},
  {t:"20:00",c:"",h:"廣安里M無人機燈光秀",p:"免費，海灘任一位置都看得到，不用另外包遊艇看秀。"},
 ],tip:null,rain:"遊艇、無人機秀都可能因雨取消（官網當天公告），備案是百貨內續攤或Spa Land Centum City。",trap:"不用花錢包遊艇專門看無人機秀——遊艇上視角不一定比較好，把遊艇跟秀分開排、順序接起來就好。"},
@@ -512,6 +525,7 @@ const VBP_DEFAULT = {
 let DAYS = [];
 let VBP = null;
 let SHOPPING = [];
+let NOTES = '';
 
 const SHOPPING_DEFAULT = [
   {name:"面膜", done:false},
@@ -524,15 +538,27 @@ const SHOPPING_DEFAULT = [
 function normalizeItem(it){
   return { t: it.t||'', c: it.c||'', h: it.h||'', p: it.p||'', tr: it.tr||'' };
 }
+/* 清掉舊版 bug 造成「日期 · 標籤 · 標籤 · 標籤」重複黏在一起的資料，只保留第一段日期＋第一個標籤 */
+function normalizeDay(d){
+  const raw = (d.date || '').trim();
+  const parts = raw.split('·').map(s=>s.trim()).filter(Boolean);
+  const cleanDate = parts.length ? parts[0] : raw;
+  const cleanTag = (d.tag && d.tag.trim()) ? d.tag.trim() : (parts.length > 1 ? parts[1] : '');
+  return { ...d, date: cleanDate, tag: cleanTag, items: (d.items||[]).map(normalizeItem) };
+}
 function normalizeDays(days){
-  return days.map(d=>({ ...d, items: (d.items||[]).map(normalizeItem) }));
+  return days.map(normalizeDay);
 }
 
 /* ============ 儲存 / 讀取（Firebase Realtime Database） ============ */
 async function loadData(){
+  let daysNeedRepair = false;
   try{
     const snap = await get(ref(db, 'busan-days'));
-    DAYS = normalizeDays(snap.exists() ? snap.val() : JSON.parse(JSON.stringify(DEFAULT_DAYS)));
+    const raw = snap.exists() ? snap.val() : JSON.parse(JSON.stringify(DEFAULT_DAYS));
+    DAYS = normalizeDays(raw);
+    // 如果清理前後不一樣，代表資料庫裡還存著舊版重複的日期文字，稍後自動存回乾淨版本
+    if(snap.exists() && JSON.stringify(raw) !== JSON.stringify(DAYS)) daysNeedRepair = true;
   }catch(e){ console.error('讀取 busan-days 失敗:', e); DAYS = normalizeDays(JSON.parse(JSON.stringify(DEFAULT_DAYS))); }
   try{
     const snapVbp = await get(ref(db, 'busan-vbp'));
@@ -542,12 +568,24 @@ async function loadData(){
     const snapShop = await get(ref(db, 'busan-shopping'));
     SHOPPING = snapShop.exists() ? snapShop.val() : JSON.parse(JSON.stringify(SHOPPING_DEFAULT));
   }catch(e){ console.error('讀取 busan-shopping 失敗:', e); SHOPPING = JSON.parse(JSON.stringify(SHOPPING_DEFAULT)); }
+  try{
+    const snapNotes = await get(ref(db, 'busan-notes'));
+    NOTES = snapNotes.exists() ? snapNotes.val() : '';
+  }catch(e){ console.error('讀取 busan-notes 失敗:', e); NOTES = ''; }
+
+  if(daysNeedRepair){
+    try{
+      await set(ref(db, 'busan-days'), DAYS);
+      console.log('已自動修復日期重複的舊資料');
+    }catch(e){ console.error('自動修復失敗:', e); }
+  }
 }
 
 async function saveData(){
   await set(ref(db, 'busan-days'), DAYS);
   await set(ref(db, 'busan-vbp'), VBP);
   await set(ref(db, 'busan-shopping'), SHOPPING);
+  await set(ref(db, 'busan-notes'), NOTES);
 }
 
 function scrapeDaysFromDom(){
@@ -570,9 +608,10 @@ function scrapeDaysFromDom(){
     const rainEl = sec.querySelector('.tipbox.rain');
     const trapEl = sec.querySelector('.tipbox.trap');
     out.push({
-      date: sec.querySelector('.date').innerText.trim(),
+      date: sec.querySelector('.date-text').innerText.trim(),
       title: sec.querySelector('h2').innerText.trim(),
-      tag: base.tag, lodge: base.lodge,
+      tag: sec.querySelector('.tag-text').innerText.trim(),
+      lodge: base.lodge,
       items,
       tip: tipEl ? tipEl.innerText.replace('Tip：','').trim() : null,
       rain: rainEl ? rainEl.innerText.replace('雨備：','').trim() : null,
@@ -626,7 +665,7 @@ function render(){
       <div class="day-head">
         <div class="big num">${String(i+1).padStart(2,'0')}</div>
         <div class="meta">
-          <div class="date editable" contenteditable="false">${d.date} · ${d.tag}</div>
+          <div class="date"><span class="date-text editable" contenteditable="false">${d.date}</span> · <span class="tag-text editable" contenteditable="false">${d.tag}</span></div>
           <h2 class="serif editable" contenteditable="false">${d.title}</h2>
         </div>
         <div class="day-ctrl">
@@ -681,6 +720,13 @@ function render(){
   shopBtn.onclick = ()=>showShop();
   nav.appendChild(shopBtn);
 
+  // 筆記本 nav button
+  const notesBtn = document.createElement('button');
+  notesBtn.className = 'notes-btn';
+  notesBtn.innerHTML = `<span class="d">📓</span>筆記本`;
+  notesBtn.onclick = ()=>showNotes();
+  nav.appendChild(notesBtn);
+
   // VBP panel
   const panel = document.createElement('div');
   panel.className = 'vbp-panel';
@@ -708,6 +754,13 @@ function render(){
   wrap.appendChild(shopPanel);
   renderShopPanel();
 
+  // 筆記本 panel
+  const notesPanel = document.createElement('div');
+  notesPanel.className = 'notes-panel';
+  notesPanel.id = 'notesPanel';
+  wrap.appendChild(notesPanel);
+  renderNotesPanel();
+
   show(0);
 }
 
@@ -731,10 +784,23 @@ function renderShopPanel(){
   `;
 }
 
+function renderNotesPanel(){
+  const notesPanel = document.getElementById('notesPanel');
+  if(!notesPanel) return;
+  notesPanel.innerHTML = `
+    <div class="vbp-hero">
+      <h2 class="serif">筆記本</h2>
+      <p style="margin:0; font-size:13.5px; color:#5a6b7a;">自由記事的空白頁，不用密碼，直接點下面打字，游標移開會自動存檔。可以記航班備用碼、訂房編號、臨時想到的事情等等。</p>
+    </div>
+    <div class="notes-box" id="notesBox" contenteditable="true" data-placeholder="點這裡開始寫筆記...">${NOTES || ''}</div>
+  `;
+}
+
 function show(i){
   document.querySelectorAll('.day').forEach((el,idx)=>el.classList.toggle('active', idx===i));
   document.getElementById('vbpPanel').classList.remove('active');
   document.getElementById('shopPanel').classList.remove('active');
+  document.getElementById('notesPanel').classList.remove('active');
   document.querySelectorAll('.daynav button').forEach((el,idx)=>el.classList.toggle('active', idx===i));
   window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
 }
@@ -742,6 +808,7 @@ function showVbp(){
   document.querySelectorAll('.day').forEach(el=>el.classList.remove('active'));
   document.getElementById('vbpPanel').classList.add('active');
   document.getElementById('shopPanel').classList.remove('active');
+  document.getElementById('notesPanel').classList.remove('active');
   document.querySelectorAll('.daynav button').forEach(el=>el.classList.remove('active'));
   document.querySelector('.daynav button.vbp-btn').classList.add('active');
   window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
@@ -750,8 +817,18 @@ function showShop(){
   document.querySelectorAll('.day').forEach(el=>el.classList.remove('active'));
   document.getElementById('vbpPanel').classList.remove('active');
   document.getElementById('shopPanel').classList.add('active');
+  document.getElementById('notesPanel').classList.remove('active');
   document.querySelectorAll('.daynav button').forEach(el=>el.classList.remove('active'));
   document.querySelector('.daynav button.shop-btn').classList.add('active');
+  window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
+}
+function showNotes(){
+  document.querySelectorAll('.day').forEach(el=>el.classList.remove('active'));
+  document.getElementById('vbpPanel').classList.remove('active');
+  document.getElementById('shopPanel').classList.remove('active');
+  document.getElementById('notesPanel').classList.add('active');
+  document.querySelectorAll('.daynav button').forEach(el=>el.classList.remove('active'));
+  document.querySelector('.daynav button.notes-btn').classList.add('active');
   window.scrollTo({top: document.querySelector('.daynav').offsetTop, behavior:'smooth'});
 }
 
@@ -933,12 +1010,27 @@ document.getElementById('days').addEventListener('focusout', (e)=>{
     SHOPPING = scrapeShopFromDom();
     saveShoppingNow();
   }
+  if(e.target.id === 'notesBox'){
+    NOTES = e.target.innerText;
+    saveNotesNow();
+  }
 });
+
+async function saveNotesNow(){
+  try{
+    await set(ref(db, 'busan-notes'), NOTES);
+  }catch(e){
+    console.error('儲存筆記失敗:', e);
+    toast('筆記儲存失敗，請檢查網路');
+  }
+}
 
 document.getElementById('saveEdit').addEventListener('click', async ()=>{
   DAYS = scrapeDaysFromDom();
   VBP = scrapeVbpFromDom();
   SHOPPING = scrapeShopFromDom();
+  const notesBox = document.getElementById('notesBox');
+  if(notesBox) NOTES = notesBox.innerText;
   try{
     await saveData();
     toast('已儲存變更 ✓ 對方重新整理即可看到');
@@ -949,7 +1041,7 @@ document.getElementById('saveEdit').addEventListener('click', async ()=>{
 });
 
 document.getElementById('resetEdit').addEventListener('click', async ()=>{
-  if(!confirm('確定要還原成預設行程嗎？你手動修改過的文字、購物清單都會被清除。')) return;
+  if(!confirm('確定要還原成預設行程嗎？你手動修改過的文字、購物清單都會被清除（筆記本內容不受影響）。')) return;
   DAYS = normalizeDays(JSON.parse(JSON.stringify(DEFAULT_DAYS)));
   VBP = JSON.parse(JSON.stringify(VBP_DEFAULT));
   SHOPPING = JSON.parse(JSON.stringify(SHOPPING_DEFAULT));
