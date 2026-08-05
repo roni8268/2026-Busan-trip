@@ -445,14 +445,14 @@ const DEFAULT_DAYS = [
  {t:"20:00",c:"food",h:"海雲台市場糖餅",p:"市場尾端排隊名店，甜甜的收尾點心。"},
 ],tip:null,rain:"SEA LIFE水族館、Busan X the Sky都是室內景點，可隨時替換上半天的戶外行程。",trap:"海雲台正前方連鎖咖啡廳景觀費偏貴，往迎月路巷子裡走2分鐘，一樣看得到海、價格砍半。"},
 
-{date:"9/12（六）",title:"海雲台．遊艇＋無人機秀",tag:"海邊＋購物",lodge:"住宿：海雲台",items:[
- {t:"08:00",c:"food",h:"早餐：All Sunday Bagel",p:"海雲台海灘正對面本店，面海座位吃現烤貝果，08:00開門、週三公休。"},
- {t:"09:30",c:"",h:"海雲台海灘散步",p:"正面就是廣安大橋，白天海景清爽療癒。"},
+{date:"9/12（六）",title:"廣安里．遊艇＋無人機秀",tag:"海邊＋購物",lodge:"住宿：海雲台",items:[
+ {t:"08:00",c:"food",h:"早餐：All Sunday Bagel",p:"廣安里海灘正對面本店，面海座位吃現烤貝果，08:00開門、週三公休。"},
+ {t:"09:30",c:"",h:"廣安里海灘散步",p:"正面就是廣安大橋，白天海景清爽療癒。"},
  {t:"13:30",c:"",h:"Centum City 新世界百貨購物",p:"全球最大百貨公司，全釜山僅此一間，逛街、美妝、免稅品採購。"},
  {t:"15:30",c:"food",h:"Voila Cafe（Marine City）",p:"海雲台馬林城的鹽味冰淇淋名店，隔著海灣正對廣安大橋，適合拍照歇腳。"},
- {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在海雲台附近，適合情侶的約會氣氛。"},
+ {t:"17:00",c:"food",h:"晚餐：元祖EONYANG烤肉（彥陽烤牛肉釜山家）",p:"米其林推薦、40年老字號，就在廣安里附近，適合情侶的約會氣氛。"},
  {t:"18:00",c:"pass",h:"鑽石灣遊艇（夜間場）",p:"VBP免費、現場加付₩5,000/人，繞行廣安大橋看夜景，全程50分鐘。【48小時VBP從這裡開卡】"},
- {t:"20:00",c:"",h:"海雲台M無人機燈光秀",p:"免費，海灘任一位置都看得到，不用另外包遊艇看秀。"},
+ {t:"20:00",c:"",h:"廣安里M無人機燈光秀",p:"免費，廣安里海灘任一位置都看得到，不用另外包遊艇看秀。"},
 ],tip:null,rain:"遊艇、無人機秀都可能因雨取消（官網當天公告），備案是百貨內續攤或Spa Land Centum City。",trap:"不用花錢包遊艇專門看無人機秀——遊艇上視角不一定比較好，把遊艇跟秀分開排、順序接起來就好。"},
 
 {date:"9/13（日）",title:"機張日：Luge・樂天世界・汗蒸幕",tag:"樂園＋放鬆",lodge:"住宿：海雲台",items:[
@@ -607,11 +607,12 @@ function scrapeDaysFromDom(){
     const tipEl = sec.querySelector('.tipbox.main-tip');
     const rainEl = sec.querySelector('.tipbox.rain');
     const trapEl = sec.querySelector('.tipbox.trap');
+    const lodgeEl = sec.querySelector('.lodge-text');
     out.push({
       date: sec.querySelector('.date-text').innerText.trim(),
       title: sec.querySelector('h2').innerText.trim(),
       tag: sec.querySelector('.tag-text').innerText.trim(),
-      lodge: base.lodge,
+      lodge: lodgeEl ? lodgeEl.innerText.trim() : base.lodge,
       items,
       tip: tipEl ? tipEl.innerText.replace('Tip：','').trim() : null,
       rain: rainEl ? rainEl.innerText.replace('雨備：','').trim() : null,
@@ -673,7 +674,7 @@ function render(){
           <button onclick="window.moveDay(${i},1)">↓ 延後一天</button>
         </div>
       </div>
-      <div class="lodge-pill"><span class="dot"></span>${d.lodge||''}</div>
+      <div class="lodge-pill"><span class="dot"></span><span class="lodge-text editable" contenteditable="false">${d.lodge||''}</span></div>
       <div class="timeline">
         ${d.items.map((it,idx)=>`
           <div class="item ${it.c}">
